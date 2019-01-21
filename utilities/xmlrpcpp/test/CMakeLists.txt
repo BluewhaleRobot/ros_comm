@@ -18,6 +18,8 @@ endif()
 
 # Some of the tests that follow use boost threads.
 find_package(Boost REQUIRED COMPONENTS system thread)
+list(REMOVE_ITEM Boost_LIBRARIES "-lpthread")
+
 include_directories(${Boost_INCLUDE_DIRS})
 
 add_library(test_fixtures test_fixtures.cpp)
