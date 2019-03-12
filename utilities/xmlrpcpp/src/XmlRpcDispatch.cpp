@@ -7,7 +7,11 @@
 
 #include <math.h>
 #include <errno.h>
-#include <sys/timeb.h>
+#ifdef WIN32
+  #include <sys/timeb.h>
+#else
+  #include <sys/time.h>
+#endif
 
 #if defined(_WINDOWS)
 # include <winsock2.h>
