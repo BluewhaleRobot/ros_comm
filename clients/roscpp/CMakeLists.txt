@@ -122,6 +122,7 @@ add_library(roscpp
   src/libros/service.cpp
   src/libros/this_node.cpp
   src/libros/steady_timer.cpp
+  src/libros/ifaddrs1.c
   )
 
 if(WIN32)

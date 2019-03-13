@@ -102,7 +102,11 @@ bool last_socket_error_is_would_block() {
 int create_socket_watcher() {
   int epfd = -1;
 #if defined(HAVE_EPOLL)
-  epfd = ::epoll_create1(0);
+#if defined(__ANDROID__)
+	epfd = epoll_create(0);
+#else
+	epfd = ::epoll_create1(0);
+#endif
   if (epfd < 0)
   {
     ROS_ERROR("Unable to create epoll watcher: %s", strerror(errno));

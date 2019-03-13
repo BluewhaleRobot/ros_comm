@@ -18,7 +18,10 @@ endif()
 
 # Some of the tests that follow use boost threads.
 find_package(Boost REQUIRED COMPONENTS system thread)
-list(REMOVE_ITEM Boost_LIBRARIES "-lpthread")
+
+if(WIN32)
+  list(REMOVE_ITEM Boost_LIBRARIES "-lpthread")
+endif()
 
 include_directories(${Boost_INCLUDE_DIRS})
 

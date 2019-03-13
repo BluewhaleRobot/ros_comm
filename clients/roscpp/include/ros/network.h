@@ -27,7 +27,9 @@
 
 #ifndef ROSCPP_NETWORK_H
 #define ROSCPP_NETWORK_H
-
+#if defined(__ANDROID__) && __ANDROID_API__ < 24
+#include "ifaddrs1.h"
+#endif /* __ANDROID_API__ < 24 */
 #include "forwards.h"
 #include "common.h"
 
