@@ -46,10 +46,24 @@ namespace network
 
 std::string g_host;
 uint16_t g_tcpros_server_port = 0;
+std::map<std::string, std::string> hosts;
 
 const std::string& getHost()
 {
   return g_host;
+}
+
+void setHostRecord(std::string name, std::string ip)
+{
+  hosts[name] = ip;
+}
+
+const std::string &getHostIP(std::string name)
+{
+  if(hosts.find(name) == hosts.end())
+    return name;
+  else
+    return hosts[name];
 }
 
 bool splitURI(const std::string& uri, std::string& host, uint32_t& port)

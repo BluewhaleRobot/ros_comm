@@ -45,6 +45,8 @@ namespace network
 ROSCPP_DECL bool splitURI(const std::string& uri, std::string& host, uint32_t& port);
 ROSCPP_DECL const std::string& getHost();
 ROSCPP_DECL uint16_t getTCPROSPort();
+ROSCPP_DECL void setHostRecord(std::string name, std::string ip);
+ROSCPP_DECL const std::string &getHostIP(std::string name);
 
 } // namespace network
 

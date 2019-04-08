@@ -266,8 +266,8 @@ bool TransportTCP::connect(const std::string& host, int port)
     struct addrinfo hints;
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;
-
-    if (getaddrinfo(host.c_str(), NULL, &hints, &addr) != 0)
+    std::string new_host = ros::network::getHostIP(host);
+    if (getaddrinfo(new_host.c_str(), NULL, &hints, &addr) != 0)
     {
       close();
       ROS_ERROR("couldn't resolve publisher host [%s]", host.c_str());

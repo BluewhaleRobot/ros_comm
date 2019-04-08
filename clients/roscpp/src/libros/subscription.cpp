@@ -399,7 +399,7 @@ bool Subscription::negotiateConnection(const std::string& xmlrpc_uri)
     ROS_ERROR("Bad xml-rpc URI: [%s]", xmlrpc_uri.c_str());
     return false;
   }
-
+  peer_host = network::getHostIP(peer_host);
   XmlRpc::XmlRpcClient* c = new XmlRpc::XmlRpcClient(peer_host.c_str(),
                                                      peer_port, "/");
  // if (!c.execute("requestTopic", params, result) || !g_node->validateXmlrpcResponse("requestTopic", result, proto))
