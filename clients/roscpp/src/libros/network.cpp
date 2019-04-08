@@ -58,7 +58,7 @@ void setHostRecord(std::string name, std::string ip)
   hosts[name] = ip;
 }
 
-const std::string &getHostIP(std::string name)
+const std::string getHostIP(std::string name)
 {
   if(hosts.find(name) == hosts.end())
     return name;
