@@ -103,7 +103,7 @@ int create_socket_watcher() {
   int epfd = -1;
 #if defined(HAVE_EPOLL)
 #if defined(__ANDROID__)
-	epfd = epoll_create(0);
+	epfd = epoll_create(1);
 #else
 	epfd = ::epoll_create1(0);
 #endif
@@ -334,6 +334,7 @@ pollfd_vector_ptr poll_sockets(int epfd, socket_pollfd *fds, nfds_t nfds, int ti
 	}
 	return ofds;
 #else
+	LOGI("poll_sockets OK 2");
 	UNUSED(epfd);
 	pollfd_vector_ptr ofds(new std::vector<socket_pollfd>);
         // Clear the `revents` fields
@@ -346,6 +347,7 @@ pollfd_vector_ptr poll_sockets(int epfd, socket_pollfd *fds, nfds_t nfds, int ti
 	int result = poll(fds, nfds, timeout);
 	if ( result < 0 )
 	{
+		LOGI("poll_sockets OK 3");
 		// EINTR means that we got interrupted by a signal, and is not an error
 		if(errno != EINTR)
 		{
@@ -361,6 +363,7 @@ pollfd_vector_ptr poll_sockets(int epfd, socket_pollfd *fds, nfds_t nfds, int ti
 				fds[i].revents = 0;
 			}
 		}
+		LOGI("poll_sockets OK 4");
 	}
 	return ofds;
 #endif // poll_sockets functions
