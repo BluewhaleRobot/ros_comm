@@ -165,8 +165,9 @@ bool TransportUDP::connect(const std::string& host, int port, int connection_id)
     struct addrinfo hints;
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;
-
-    if (getaddrinfo(host.c_str(), NULL, &hints, &addr) != 0)
+    std::string new_host = ros::network::getHostIP(host);
+    std::cout << "new_host: " << new_host << std::endl;
+    if (getaddrinfo(new_host.c_str(), NULL, &hints, &addr) != 0)
     {
       close();
       ROS_ERROR("couldn't resolve host [%s]", host.c_str());
