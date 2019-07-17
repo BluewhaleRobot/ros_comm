@@ -134,7 +134,7 @@ XmlRpcDispatch::work(double timeout)
       XmlRpcUtil::error("Error in XmlRpcDispatch::work: error in poll (%d).", WSAGetLastError());
 #else
       if(errno != EINTR)
-        XmlRpcUtil::error("Error in XmlRpcDispatch::work: error in poll (%d).", nEvents);
+        XmlRpcUtil::error("Error in XmlRpcDispatch::work: error in poll (%d). errno (%d)", nEvents, errno);
 #endif
       _inWork = false;
       return;
