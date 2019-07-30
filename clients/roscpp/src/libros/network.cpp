@@ -32,8 +32,11 @@
 #include "ros/io.h"     // cross-platform headers needed
 #include <ros/console.h>
 #include <ros/assert.h>
-#ifdef HAVE_IFADDRS_H
+#if defined(HAVE_IFADDRS_H) && !(defined(__ANDROID__) && __ANDROID_API__ < 24)
   #include <ifaddrs.h>
+#endif
+#if defined(__ANDROID__) && __ANDROID_API__ < 24
+  #include <ros/ifaddrs1.h>
 #endif
 
 #include <boost/lexical_cast.hpp>
@@ -136,7 +139,7 @@ std::string determineHost()
 
   // Fourth, fall back on interface search, which will yield an IP address
 
-#ifdef HAVE_IFADDRS_H
+#if defined(HAVE_IFADDRS_H) || (defined(__ANDROID__) && __ANDROID_API__ < 24)
   struct ifaddrs *ifa = NULL, *ifp = NULL;
   int rc;
   if ((rc = getifaddrs(&ifp)) < 0)
