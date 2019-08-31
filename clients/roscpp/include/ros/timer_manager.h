@@ -592,8 +592,13 @@ void TimerManager<T, D, E>::threadFunc()
       {
         // On system time we can simply sleep for the rest of the wait time, since anything else requiring processing will
         // signal the condition variable
+        #ifdef BOOST_CHRONO_WINDOWS_API
+        typename TimerManagerTraits<T>::time_point end_tp(boost::chrono::duration<boost::int_least64_t, boost::ratio<BOOST_RATIO_INTMAX_C(1), BOOST_RATIO_INTMAX_C(10000000)> >(sleep_end.toNSec()));
+        #else
         typename TimerManagerTraits<T>::time_point end_tp(boost::chrono::nanoseconds(sleep_end.toNSec()));
-        timers_cond_.wait_until(lock, end_tp);
+        #endif
+        // typename TimerManagerTraits<T>::time_point end_tp(boost::chrono::nanoseconds(sleep_end.toNSec()));
+        // timers_cond_.wait_until(lock, end_tp);
       }
     }
 

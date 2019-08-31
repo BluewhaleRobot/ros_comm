@@ -33,6 +33,9 @@ if(NOT APPLE AND NOT WIN32)
     add_definitions(-DBOOST_THREAD_HAS_CONDATTR_SET_CLOCK_MONOTONIC)
   endif()
 endif()
+if(WIN32)
+  add_definitions(-DBOOST_CHRONO_WINDOWS_API)
+endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/ros/common.h.in ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/ros/common.h)
 
